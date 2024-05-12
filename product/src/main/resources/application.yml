@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: product
+
+  datasource:
+    driverClassName: org.postgresql.Driver
+    username: admin
+    password: password
+    url: jdbc:postgresql://localhost:5432/fashion-shop
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
