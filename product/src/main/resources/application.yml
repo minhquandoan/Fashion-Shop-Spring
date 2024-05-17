@@ -1,6 +1,11 @@
+server:
+  port: 8080
 spring:
   application:
     name: product
+  
+  profiles:
+    active: "prod"
 
   datasource:
     driverClassName: org.postgresql.Driver
@@ -9,6 +14,14 @@ spring:
     url: jdbc:postgresql://localhost:5432/fashion-shop
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update
+    # hibernate:
+    #   ddl-auto: update
     show-sql: true
+  config:
+    import: "optional:configserver:http://localhost:8071/"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
