@@ -14,6 +14,7 @@ import com.minhquan.common.exception.custom.AppInternalException;
 import com.minhquan.product.dto.BuildVersion;
 import com.minhquan.product.dto.ProductDto;
 import com.minhquan.product.service.impl.ProductService;
+import com.minhquan.product.service.restclient.CartRestClient;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -31,11 +32,13 @@ public class ProductResource {
 
     private final ProductService service;
     private BuildVersion buildVesion;
+    private CartRestClient cartRestClient;
 
     @Autowired
-    public ProductResource(BuildVersion version, ProductService service) {
+    public ProductResource(BuildVersion version, ProductService service, CartRestClient cartRestClient) {
         this.service = service;
         this.buildVesion = version;
+        this.cartRestClient = cartRestClient;
     }
 
     @Operation(summary = "POST endpoint to create new Product", description = "Create new Product and save")
@@ -64,4 +67,10 @@ public class ProductResource {
     public ResponseEntity<String> getBuildVersion() {
         return ResponseEntity.ok(this.buildVesion.getVersion());
     }
+
+    @GetMapping("/test/rest-client/cart")
+    public ResponseEntity<String> getHello() {
+        return this.cartRestClient.getHello("Hello from PRODUCT");
+    }
+
 }
